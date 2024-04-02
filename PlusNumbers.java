@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Node {
     private String name;
     private Node parent;
@@ -10,19 +8,45 @@ class Node {
         this.name = name;
     }
 
-    // Getters and setters
+    public String getName() {
+        return name;
+    }
+
+    public Node getParent() {
+        return parent;
+    }
+
+    public void setParent(Node parent) {
+        this.parent = parent;
+    }
+
+    public Node getLeftChild() {
+        return leftChild;
+    }
+
+    public void setLeftChild(Node leftChild) {
+        this.leftChild = leftChild;
+    }
+
+    public Node getRightSibling() {
+        return rightSibling;
+    }
+
+    public void setRightSibling(Node rightSibling) {
+        this.rightSibling = rightSibling;
+    }
 
     public void addChild(Node child) {
         if (leftChild == null) {
             leftChild = child;
         } else {
             Node sibling = leftChild;
-            while (sibling.rightSibling != null) {
-                sibling = sibling.rightSibling;
+            while (sibling.getRightSibling() != null) {
+                sibling = sibling.getRightSibling();
             }
-            sibling.rightSibling = child;
+            sibling.setRightSibling(child);
         }
-        child.parent = this;
+        child.setParent(this);
     }
 
     public void display(int level, boolean asciiMode) {
@@ -34,7 +58,7 @@ class Node {
         Node child = leftChild;
         while (child != null) {
             child.display(level + 1, asciiMode);
-            child = child.rightSibling;
+            child = child.getRightSibling();
         }
     }
 }
@@ -63,9 +87,9 @@ class Tree {
         if (current.getName().equals(name)) {
             return current;
         }
-        Node foundNode = findNode(current.leftChild, name);
+        Node foundNode = findNode(current.getLeftChild(), name);
         if (foundNode == null) {
-            foundNode = findNode(current.rightSibling, name);
+            foundNode = findNode(current.getRightSibling(), name);
         }
         return foundNode;
     }
